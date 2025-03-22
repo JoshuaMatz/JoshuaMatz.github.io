@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Movie Hub - Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e50914;
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-color: #f5f5f5;
+            --secondary-text: #ccc;
+            --border-color: #333;
+            --accent-color: #ffd700;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--dark-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--darker-bg);
+            padding: 1.5rem 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo span {
+            color: var(--text-color);
+        }
+        
+        nav {
+            background-color: var(--card-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-links li {
+            margin: 0 0.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            transition: color 0.3s;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-color);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--text-color);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: var(--secondary-text);
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .screenshot {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 2rem auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .page-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .page-card-icon {
+            font-size: 1.5rem;
+        }
+        
+        .page-card-title {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        
+        .page-card-body {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .page-card-body ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .sitemap {
+            text-align: center;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        pre {
+            background-color: var(--darker-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+        }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: var(--accent-color);
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .button-demo {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .button-secondary {
+            background-color: #333;
+        }
+        
+        .footer {
+            background-color: var(--darker-bg);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer p {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--secondary-text);
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .pages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links a {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">ACTION<span>HUB</span></h1>
+            <p>A responsive web application for action movie enthusiasts</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#site-structure">Site Structure</a></li>
+                <li><a href="#pages">Pages</a></li>
+                <li><a href="#interactions">User Interactions</a></li>
+                <li><a href="#technical">Technical Details</a></li>
+                <li><a href="#future">Future Plans</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <section id="overview" class="intro">
+            <h2>Project Overview</h2>
+            <p>Action Movie Hub is a comprehensive platform designed for action movie enthusiasts. The application allows users to browse, filter, and manage their favorite action movies across various categories. With features like movie filtering, personal favorites tracking, and user contributions, the platform creates an engaging experience for action film fans.</p>
+            <a href="https://yourusername.github.io/action-movie-hub" class="button-demo">View Live Demo</a>
+        </section>
+        
+        <section id="site-structure">
+            <h2>Site Structure</h2>
+            <p>The application follows a multi-page structure that's designed to be intuitive and easy to navigate. Each page serves a specific purpose in the overall user experience.</p>
+            
+            <div class="sitemap">
+                <pre>
+                      ┌────────────┐
+                      │   Home     │
+                      └─────┬──────┘
+                            │
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+┌───────▼──────┐   ┌───────▼──────┐   ┌───────▼──────┐
+│    Movies    │   │  Favorites   │   │  Categories  │
+└───────┬──────┘   └──────────────┘   └──────────────┘
+        │                                     ▲
+        └─────────────────┬─────────────────┘
+                         │
+               ┌─────────▼─────────┐
+               │      About        │
+               └─────────┬─────────┘
+                         │
+                 ┌───────▼───────┐
+                 │    Contact    │
+                 └───────────────┘</pre>
+            </div>
+            
+            <p>The site is structured as follows:</p>
+            <ul>
+                <li><code>index.html</code> - Home Page</li>
+                <li><code>movies.html</code> - Movie Listings</li>
+                <li><code>favorites.html</code> - User Favorites</li>
+                <li><code>categories.html</code> - Category Exploration</li>
+                <li><code>about.html</code> - About Page</li>
+                <li><code>contact.html</code> - Contact Form</li>
+            </ul>
+        </section>
+        
+        <section id="pages">
+            <h2>Page Descriptions</h2>
+            <div class="pages-grid">
+                <div class="page-card">
+                    <div class="page-card-header">
+                        <i class="fas fa-home page-card-icon"></i>
+                        <h3 class="page-card-title">Home Page</h3>
+                    </div>
+                    <div class="page-card-body">
+                        <p>The main landing page that welcomes users and highlights key content.</p>
+                        <h4>Key Elements:</h4>
+                        <ul>
+                            <li>ActionHub logo and site name</li>
+                            <li>Featured movies section</li>
+                            <li>Category exploration</li>
+                            <li>Main navigation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="page-card">
+                    <div class="page-card-header">
+                        <i class="fas fa-film page-card-icon"></i>
+                        <h3 class="page-card-title">Movies Page</h3>
+                    </div>
+                    <div class="page-card-body">
+                        <p>A comprehensive listing of action movies with filtering capabilities.</p>
+                        <h4>Key Elements:</h4>
+                        <ul>
+                            <li>Filtering panel</li>
+                            <li>Movie grid display</li>
+                            <li>Add movie button and form</li>
+                            <li>Edit and favorite functionality</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="page-card">
+                    <div class="page-card-header">
+                        <i class="fas fa-heart page-card-icon"></i>
+                        <h3 class="page-card-title">Favorites Page</h3>
+                    </div>
+                    <div class="page-card-body">
+                        <p>A personalized collection of the user's favorite movies.</p>
+                        <h4>Key Elements:</h4>
+                        <ul>
+                            <li>Statistics panel</li>
+                            <li>Year distribution chart</li>
+                            <li>Quick add form</li>
+                            <li>Favorites grid</li>
+                            <li>Activity log</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="page-card">
+                    <div class="page-card-header">
+                        <i class="fas fa-tags page-card-icon"></i>
+                        <h3 class="page-card-title">Categories Page</h3>
+                    </div>
+                    <div class="page-card-body">
+                        <p>Organized exploration of movies by category.</p>
+                        <h4>Key Elements:</h4>
+                        <ul>
+                            <li>Category sections</li>
+                            <li>Category descriptions</li>
+                            <li>Featured movies by category</li>
+                            <li>Expandable sections</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="page-card">
+                    <div class="page-card-header">
+                        <i class="fas fa-info-circle page-card-icon"></i>
+                        <h3 class="page-card-title">About Page</h3>
+                    </div>
+                    <div class="page-card-body">
+                        <p>Information about the Action Movie Hub platform and team.</p>
+                        <h4>Key Elements:</h4>
+                        <ul>
+                            <li>Mission statement</li>
+                            <li>Team profiles</li>
+                            <li>History timeline</li>
+                            <li>FAQ accordion</li>
+                            <li>Newsletter subscription</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="page-card">
+                    <div class="page-card-header">
+                        <i class="fas fa-envelope page-card-icon"></i>
+                        <h3 class="page-card-title">Contact Page</h3>
+                    </div>
+                    <div class="page-card-body">
+                        <p>A form for users to send feedback or inquiries.</p>
+                        <h4>Key Elements:</h4>
+                        <ul>
+                            <li>Contact form</li>
+                            <li>Contact information</li>
+                            <li>Office location map</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="interactions">
+            <h2>User Interactions</h2>
+            <p>Each page offers different interactive elements that allow users to engage with the content and perform various actions.</p>
+            
+            <h3>Home Page Interactions</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Button/Element</th>
+                            <th>Action</th>
+                            <th>Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Navigation Menu</td>
+                            <td>Click on any navigation link</td>
+                            <td>Navigates to the corresponding page</td>
+                        </tr>
+                        <tr>
+                            <td>Featured Movie Card</td>
+                            <td>Click on any movie card</td>
+                            <td>Shows more details about the selected movie</td>
+                        </tr>
+                        <tr>
+                            <td>Category Card</td>
+                            <td>Click on a category</td>
+                            <td>Navigates to Movies page with that category pre-filtered</td>
+                        </tr>
+                        <tr>
+                            <td>Logo</td>
+                            <td>Click on the ActionHub logo</td>
+                            <td>Returns to home page from any other page</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Movies Page Interactions</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Button/Element</th>
+                            <th>Action</th>
+                            <th>Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Apply Filters</td>
+                            <td>Click after selecting filters</td>
+                            <td>Updates the movie list based on selected criteria</td>
+                        </tr>
+                        <tr>
+                            <td>Reset Filters</td>
+                            <td>Click</td>
+                            <td>Clears all filter selections and shows all movies</td>
+                        </tr>
+                        <tr>
+                            <td>Add Movie</td>
+                            <td>Click</td>
+                            <td>Opens a modal form to add a new movie</td>
+                        </tr>
+                        <tr>
+                            <td>Edit Movie</td>
+                            <td>Click on the Edit button</td>
+                            <td>Opens the edit form with the movie's data pre-filled</td>
+                        </tr>
+                        <tr>
+                            <td>Favorite Icon</td>
+                            <td>Click on the heart icon</td>
+                            <td>Toggles favorite status for the movie</td>
+                        </tr>
+                        <tr>
+                            <td>Back Button</td>
+                            <td>Click</td>
+                            <td>Returns to the previous page</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Favorites Page Interactions</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Button/Element</th>
+                            <th>Action</th>
+                            <th>Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Quick Add Form</td>
+                            <td>Submit after entering movie details</td>
+                            <td>Adds a new movie directly to favorites</td>
+                        </tr>
+                        <tr>
+                            <td>Remove Button</td>
+                            <td>Click on X button on a movie card</td>
+                            <td>Removes the movie from favorites</td>
+                        </tr>
+                        <tr>
+                            <td>Movie Card</td>
+                            <td>Click on a movie card</td>
+                            <td>Shows detailed information about the movie</td>
+                        </tr>
+                        <tr>
+                            <td>Year Chart</td>
+                            <td>Hover over bars</td>
+                            <td>Shows tooltip with count information</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="technical">
+            <h2>Technical Implementation</h2>
+            <div class="card">
+                <h3>Responsive Design</h3>
+                <p>The application uses a mobile-first approach with responsive layouts that adapt to different screen sizes:</p>
+                <ul>
+                    <li>Fluid grids that reflow based on viewport width</li>
+                    <li>Media queries to adjust layout and element sizes</li>
+                    <li>Flexible images that scale appropriately</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Web Storage</h3>
+                <p>Local storage is used to persist user data between sessions:</p>
+                <ul>
+                    <li>Movie database</li>
+                    <li>User favorites</li>
+                    <li>Recent activity</li>
+                    <li>User
